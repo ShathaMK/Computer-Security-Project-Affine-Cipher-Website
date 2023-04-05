@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>security</title>
+    <link rel="stylesheet" href="s.css">
+</head>
+
+<body>
+
+    <div class="S">
+        .
+    </div>
+
+
+    <div class="T">
+        <span style="font-size: 50px;"> AFFINE CIPHER </span>
+    </div>
+    <br /> <br /> <br />
+
+    <img id="img" height="300" style="position: absolute;">
+
+
+
+    <div class="container">
+        <!---------------card 1------------------------>
+        <div class="card-wrapper">
+            <div class="card">
+
+                <p class="title">
+                    <span style="font-size: 25px;">Encryption </span>
+                </p>
+                <br />
+                <form method="get" action="#" id="FE">
+                    <label> Plaintext: </label> <br />
+                    <input type="text" id="plaintext" />
+                    <br />
+                    <label> a: </label> <br />
+                    <input type="text" id="aE" />
+                    <br />
+                    <label> b: </label> <br />
+                    <input type="text" id="bE" />
+                    <br /> <br />
+                    <input type="submit" value="Encrypt" onclick="send()" style="cursor: pointer; " />
+                    <br /> <br />
+                    <label id="cipher"> </label> <br />
+
+                </form>
+
+
+            </div>
+        </div>
+        <!---------------card 2------------------------>
+        <div class="card-wrapper">
+
+            <div class="card">
+                <p class="title">
+                    <span style="font-size: 25px;">Decryption </span>
+                </p> <br>
+                <form method="get" action="#" id="FD">
+
+                    <label> Ciphertext: </label> <br>
+                    <input type="text" id="ciphertext" />
+                    <br />
+
+                    <label> a: </label> <br />
+                    <input type="text" id="aCipher" />
+                    <br />
+
+                    <label> b: </label> <br />
+                    <input type="text" id="bCipher" />
+                    <br /> <br />
+
+                    <input type="submit" value="Decrypt" onclick="Decrypt()" style="cursor: pointer;" />
+                    <br /> <br />
+                    <label id="cipherDec"> </label> <br />
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+        var form = document.getElementById("FE");
+        var plaintext = form.elements[0];
+        var a = form.elements[1];
+        var b = form.elements[2];
+        var cipherT = document.getElementById("cipher");
+
+        function gcd(c, d) {
+            var divisor;
+            for (let i = 1; i <= c && i <= d; i++) {
+                if (c % i == 0 && d % i == 0) {
+                    divisor = i;
+                }
+            }
+            return divisor;
+        }
+
+        function send() {
+            //---------------------------GCD--------------------------------------
+            // GCD(a,26) = 1
+            var result = gcd(a.value, 26);
+            console.log(result);
+            if (result != 1) {
+                window.alert("GCD(" + a.value + ",26) Does not = 1, \n Enter a again");
+            }
+
+
+            else {
+
+                //---------------------------plaintext to array--------------------------------------
+
+                var plainArray = plaintext.value.split('');
+                console.log(plainArray);
+
+                console.log(plaintext.value.length);
+                console.log(plaintext.value);
+
+                var plainNumberArray = new Array();
+                var cipherNumberArray = new Array();
+                var cipherTextArray = new Array();
+
+                //---------------------------plaintext to num--------------------------------------
+
+
+                convert_Plaintext_To_Num();
+
+                console.log(plainNumberArray);
+
+                //---------------------------cipher rule--------------------------------------
+
+                //    var y = (a * x + b) % 26;
+                for (var i = 0; i < plaintext.value.length; i++) {
+                    if (plainNumberArray[i] == ' ') { cipherNumberArray.push(' ') }
+                    else {
+                        var y = (a.value * plainNumberArray[i] + (b.value * 1)) % 26;
+                        cipherNumberArray.push(y);
+                    }
+                }
+                console.log(cipherNumberArray);
+
+
+                //---------------------------cipher Number to cipher text array switch--------------------------------------
+
+
+                convert_Cipher_Number_To_Cipher_Text();
+
+                //--------------------cipher text array to cipher text--------------------------------------
+
+                console.log(cipherTextArray);
+                var cipherText = cipherTextArray.join('')
+                console.log(cipherText);
+
+
+                //---------------------------plaintext to num swtich--------------------------------------
+
+                function convert_Plaintext_To_Num() {
+
+                    for (var i = 0; i < plaintext.value.length; i++) {
+
+                        switch (plainArray[i]) {
+                            case 'a': case 'A':
+                                plainNumberArray.push(0);
+                                break;
+                            case 'b': case 'B':
+                                plainNumberArray.push(1);
+                                break;
+                            case 'c': case 'C':
+                                plainNumberArray.push(2);
+                                break;
+                            case 'd': case 'D':
+                                plainNumberArray.push(3);
+                                break;
+                            case 'e': case 'E':
+                                plainNumberArray.push(4);
+                                break;
+                            case 'f': case 'F':
+                                plainNumberArray.push(5);
+                                break;
+                            case 'g': case 'G':
+                                plainNumberArray.push(6);
+                                break;
+                            case 'h': case 'H':
+                                plainNumberArray.push(7);
+                                break;
+                            case 'i': case 'I':
+                                plainNumberArray.push(8);
+                                break;
+                            case 'j': case 'J':
+                                plainNumberArray.push(9);
+                                break;
+                            case 'k': case 'K':
+                                plainNumberArray.push(10);
+                                break;
+                            case 'l': case 'L':
+                                plainNumberArray.push(11);
+                                break;
+                            case 'm': case 'M':
+                                plainNumberArray.push(12);
+                                break;
+                            case 'n': case 'N':
+                                plainNumberArray.push(13);
+                                break;
+                            case 'o': case 'O':
+                                plainNumberArray.push(14);
+                                break;
+                            case 'p': case 'P':
+                                plainNumberArray.push(15);
+                                break;
+                            case 'q': case 'Q':
+                                plainNumberArray.push(16);
+                                break;
+                            case 'r': case 'R':
+                                plainNumberArray.push(17);
+                                break;
+                            case 's': case 'S':
+                                plainNumberArray.push(18);
+                                break;
+                            case 't': case 'T':
+                                plainNumberArray.push(19);
+                                break;
+                            case 'u': case 'U':
+                                plainNumberArray.push(20);
+                                break;
+                            case 'v': case 'V':
+                                plainNumberArray.push(21);
+                                break;
+                            case 'w': case 'W':
+                                plainNumberArray.push(22);
+                                break;
+                            case 'x': case 'X':
+                                plainNumberArray.push(23);
+                                break;
+                            case 'y': case 'Y':
+                                plainNumberArray.push(24);
+                                break;
+                            case 'z': case 'Z':
+                                plainNumberArray.push(25);
+                                break;
+                            case ' ':
+                                plainNumberArray.push(' ');
+                                break;
+
+                            default:
+                            // code block
+                        }
+
+                    }
+
+
+
+
+
+                }
+
+
+                //---------------------------plaintext to num swtich--------------------------------------
+
+                function convert_Cipher_Number_To_Cipher_Text() {
+
+
+                    for (var i = 0; i < plaintext.value.length; i++) {
+
+
+                        switch (cipherNumberArray[i]) {
+                            case 0:
+                                cipherTextArray.push('A');
+                                break;
+                            case 1:
+                                cipherTextArray.push('B');
+                                break;
+                            case 2:
+                                cipherTextArray.push('C');
+                                break;
+                            case 3:
+                                cipherTextArray.push('D');
+                                break;
+                            case 4:
+                                cipherTextArray.push('E');
+                                break;
+                            case 5:
+                                cipherTextArray.push('F');
+                                break;
+                            case 6:
+                                cipherTextArray.push('G');
+                                break;
+                            case 7:
+                                cipherTextArray.push('H');
+                                break;
+                            case 8:
+                                cipherTextArray.push('I');
+                                break;
+                            case 9:
+                                cipherTextArray.push('J');
+                                break;
+                            case 10:
+                                cipherTextArray.push('K');
+                                break;
+                            case 11:
+                                cipherTextArray.push('L');
+                                break;
+                            case 12:
+                                cipherTextArray.push('M');
+                                break;
+                            case 13:
+                                cipherTextArray.push('N');
+                                break;
+                            case 14:
+                                cipherTextArray.push('O');
+                                break;
+                            case 15:
+                                cipherTextArray.push('P');
+                                break;
+                            case 16:
+                                cipherTextArray.push('Q');
+                                break;
+                            case 17:
+                                cipherTextArray.push('R');
+                                break;
+                            case 18:
+                                cipherTextArray.push('S');
+                                break;
+                            case 19:
+                                cipherTextArray.push('T');
+                                break;
+                            case 20:
+                                cipherTextArray.push('U');
+                                break;
+                            case 21:
+                                cipherTextArray.push('V');
+                                break;
+                            case 22:
+                                cipherTextArray.push('W');
+                                break;
+                            case 23:
+                                cipherTextArray.push('X');
+                                break;
+                            case 24:
+                                cipherTextArray.push('Y');
+                                break;
+                            case 25:
+                                cipherTextArray.push('Z');
+                                break;
+                            case ' ':
+                                cipherTextArray.push(' ');
+                                break;
+
+                            default:
+                            // code block
+                        }
+
+                    }
+
+                }
+
+                cipherT.innerHTML = cipherText;
+            }
+        };
+        //--------------------------------------------*decryption*--------------------------------------------------------
+
+        var formDec = document.getElementById("FD");
+        var ciphertextDec = formDec.elements[0];
+        var aDec = formDec.elements[1];
+        var bDec = formDec.elements[2];
+        var plaintextDec = document.getElementById("cipherDec");
+
+        //--------------------------------------------inverse of a--------------------------------------------------------
+
+        function inverse_of_a() {
+
+            var a_inv = 0;
+            var flag = 0;
+            //Find a^-1 (the multiplicative inverse of a
+            //in the group of integers modulo m.)
+            for (var j = 0; j < 26; j++) {
+                flag = (aDec.value * j) % 26;
+                //Check if (a*j)%26 == 1,
+                //then j will be the multiplicative inverse of a
+                if (flag == 1) {
+                    a_inv = j;
+                }
+            }
+            return a_inv;
+        }
+
+
+        function mod(xBefore) {
+            return ((xBefore % 26) + 26) % 26;
+        }
+
+        function Decrypt() {
+            //---------------------------cipher text to array--------------------------------------
+
+            // plainArray
+            var ciphertextaArrayDec = ciphertextDec.value.split('');
+            console.log(ciphertextaArrayDec);
+            console.log(ciphertextDec.value.length);
+            console.log(ciphertextDec.value);
+
+            var cipherNumberArrayDec = new Array();
+            var PlainNumberArrayDec = new Array();
+            var plainTextArrayDec = new Array();
+
+            //---------------------------plaintext to num--------------------------------------
+            convert_cipherText_To_Num();
+            console.log(cipherNumberArrayDec);
+
+            //---------------------------plaintext to num swtich--------------------------------------
+
+            function convert_cipherText_To_Num() {
+
+                for (var i = 0; i < ciphertextDec.value.length; i++) {
+
+                    switch (ciphertextaArrayDec[i]) {
+                        case 'a': case 'A':
+                            cipherNumberArrayDec.push(0);
+                            break;
+                        case 'b': case 'B':
+                            cipherNumberArrayDec.push(1);
+                            break;
+                        case 'c': case 'C':
+                            cipherNumberArrayDec.push(2);
+                            break;
+                        case 'd': case 'D':
+                            cipherNumberArrayDec.push(3);
+                            break;
+                        case 'e': case 'E':
+                            cipherNumberArrayDec.push(4);
+                            break;
+                        case 'f': case 'F':
+                            cipherNumberArrayDec.push(5);
+                            break;
+                        case 'g': case 'G':
+                            cipherNumberArrayDec.push(6);
+                            break;
+                        case 'h': case 'H':
+                            cipherNumberArrayDec.push(7);
+                            break;
+                        case 'i': case 'I':
+                            cipherNumberArrayDec.push(8);
+                            break;
+                        case 'j': case 'J':
+                            cipherNumberArrayDec.push(9);
+                            break;
+                        case 'k': case 'K':
+                            cipherNumberArrayDec.push(10);
+                            break;
+                        case 'l': case 'L':
+                            cipherNumberArrayDec.push(11);
+                            break;
+                        case 'm': case 'M':
+                            cipherNumberArrayDec.push(12);
+                            break;
+                        case 'n': case 'N':
+                            cipherNumberArrayDec.push(13);
+                            break;
+                        case 'o': case 'O':
+                            cipherNumberArrayDec.push(14);
+                            break;
+                        case 'p': case 'P':
+                            cipherNumberArrayDec.push(15);
+                            break;
+                        case 'q': case 'Q':
+                            cipherNumberArrayDec.push(16);
+                            break;
+                        case 'r': case 'R':
+                            cipherNumberArrayDec.push(17);
+                            break;
+                        case 's': case 'S':
+                            cipherNumberArrayDec.push(18);
+                            break;
+                        case 't': case 'T':
+                            cipherNumberArrayDec.push(19);
+                            break;
+                        case 'u': case 'U':
+                            cipherNumberArrayDec.push(20);
+                            break;
+                        case 'v': case 'V':
+                            cipherNumberArrayDec.push(21);
+                            break;
+                        case 'w': case 'W':
+                            cipherNumberArrayDec.push(22);
+                            break;
+                        case 'x': case 'X':
+                            cipherNumberArrayDec.push(23);
+                            break;
+                        case 'y': case 'Y':
+                            cipherNumberArrayDec.push(24);
+                            break;
+                        case 'z': case 'Z':
+                            cipherNumberArrayDec.push(25);
+                            break;
+                        case ' ':
+                            cipherNumberArrayDec.push(' ');
+                            break;
+
+                        default:
+                            console.log('not pushed');
+                        // code block
+                    }
+
+                }
+            }
+
+            //--------------------------------------------inverse of a--------------------------------------------------------
+            var AInverse = inverse_of_a();
+            console.log(AInverse);
+
+            if ((AInverse * aDec.value % 26) != 1) {
+                window.alert("(A Inverse * a % 26) Does not = 1, \n Enter a again");
+            }
+
+            else {
+
+                //---------------------------cipher dec rule--------------------------------------
+
+                // x = inverse(a)*(y-b) % 26;
+                for (var i = 0; i < ciphertextDec.value.length; i++) {
+
+                    if (cipherNumberArrayDec[i] == ' ')
+                     { PlainNumberArrayDec.push(' ') 
+                    continue;}
+                   
+                     else if ((AInverse * (cipherNumberArrayDec[i] - bDec.value * 1)) >= 0) 
+                    { var x = (AInverse * (cipherNumberArrayDec[i] - bDec.value * 1)) % 26; }
+                   
+                    else {
+                        var xBefore = (AInverse * (cipherNumberArrayDec[i] - bDec.value * 1));
+                        var x = mod(xBefore);  
+                    }
+                    PlainNumberArrayDec.push(x);
+                }
+                console.log(PlainNumberArrayDec);
+
+                //---------------------------plain Number to plain text array----------------------------------------
+
+                convert_Plain_Number_To_Plain_Text();
+
+                //---------------------------plain Number to plain text array switch--------------------------------------
+
+                function convert_Plain_Number_To_Plain_Text() {
+                    for (var i = 0; i < ciphertextDec.value.length; i++) {
+
+
+                        switch (PlainNumberArrayDec[i]) {
+                            case 0:
+                                plainTextArrayDec.push('A');
+                                break;
+                            case 1:
+                                plainTextArrayDec.push('B');
+                                break;
+                            case 2:
+                                plainTextArrayDec.push('C');
+                                break;
+                            case 3:
+                                plainTextArrayDec.push('D');
+                                break;
+                            case 4:
+                                plainTextArrayDec.push('E');
+                                break;
+                            case 5:
+                                plainTextArrayDec.push('F');
+                                break;
+                            case 6:
+                                plainTextArrayDec.push('G');
+                                break;
+                            case 7:
+                                plainTextArrayDec.push('H');
+                                break;
+                            case 8:
+                                plainTextArrayDec.push('I');
+                                break;
+                            case 9:
+                                plainTextArrayDec.push('J');
+                                break;
+                            case 10:
+                                plainTextArrayDec.push('K');
+                                break;
+                            case 11:
+                                plainTextArrayDec.push('L');
+                                break;
+                            case 12:
+                                plainTextArrayDec.push('M');
+                                break;
+                            case 13:
+                                plainTextArrayDec.push('N');
+                                break;
+                            case 14:
+                                plainTextArrayDec.push('O');
+                                break;
+                            case 15:
+                                plainTextArrayDec.push('P');
+                                break;
+                            case 16:
+                                plainTextArrayDec.push('Q');
+                                break;
+                            case 17:
+                                plainTextArrayDec.push('R');
+                                break;
+                            case 18:
+                                plainTextArrayDec.push('S');
+                                break;
+                            case 19:
+                                plainTextArrayDec.push('T');
+                                break;
+                            case 20:
+                                plainTextArrayDec.push('U');
+                                break;
+                            case 21:
+                                plainTextArrayDec.push('V');
+                                break;
+                            case 22:
+                                plainTextArrayDec.push('W');
+                                break;
+                            case 23:
+                                plainTextArrayDec.push('X');
+                                break;
+                            case 24:
+                                plainTextArrayDec.push('Y');
+                                break;
+                            case 25:
+                                plainTextArrayDec.push('Z');
+                                break;
+                            case ' ':
+                                plainTextArrayDec.push(' ');
+                                break;
+                            default:
+                            // code block
+                        }
+
+                    }
+
+                }
+                //--------------------cipher text array to cipher text--------------------------------------
+
+                console.log(plainTextArrayDec);
+                var plainTextJoin = plainTextArrayDec.join('')
+                console.log(plainTextJoin);
+
+                plaintextDec.innerHTML = plainTextJoin;
+
+            }
+        };
+    </script>
+
+
+</body>
+
+</html>
