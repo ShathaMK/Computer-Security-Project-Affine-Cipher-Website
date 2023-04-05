@@ -8,4 +8,4 @@ The user can encrypt and decrypt using Affine cipher. First, enter Plain/Cipher 
 
 
 
-Note : This project Was A group project created by Shatha Almukhaild and Bayan Aldoghan.
+Note : This project was a group project created by Shatha Almukhaild and Bayan Aldoghan.
